@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %} {{ anime.title.romaji }} {% endblock %}
+
+{% block nav_class %} anime-detail-nav {% endblock %}  <!-- Clase especial para cambiar el estilo -->
+
+{% block content %}
+<section class="anime-banner">
+    <img src="{{ anime.bannerImage }}" alt="{{ anime.title.romaji }}">
+</section>
+
+<section class="anime-info">
+    <div class="cover-container">
+        <img class="cover-image" src="{{ anime.coverImage.large }}" alt="{{ anime.title.romaji }}">
+    </div>
+    <div class="cuerpo-info">
+        <h1>{{ anime.title.romaji }}</h1>
+        <!-- <p>Duración de episodios: {{ anime.duration }} minutos</p> -->
+        <p>{{ anime.description|safe }}</p>
+    </div>
+</section>
+
+<div class="section-grid">
+
+    <section class="relations">
+        <h2>Relaciones</h2>
+        <div class="relations-grid">
+          {% for relation in anime.relations.edges %}
+            <div class="relation-item">
+              <img src="{{ relation.node.coverImage.large }}" alt="{{ relation.node.title.romaji }}">
+              <h3>{{ relation.node.title.romaji }}</h3>
+              <p>Tipo de relación: {{ relation.relationType }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    
+    
+    <div class="characters-grid">
+        <div class="containepj">
+        {% for character in anime.characters.edges %}
+            <div class="character-card">
+                <div class="personaje">
+                    <img src="{{ character.node.image.large }}" alt="{{ character.node.name.full }}">
+                    <h3>{{ character.node.name.full }}</h3>
+                </div>
+                <div class="seiyu">
+                    <p>Seiyuu: {{ character.voiceActors.0.name.full }}</p>
+                    <img src="{{ character.voiceActors.0.image.large }}" alt="Foto de {{ character.voiceActors.0.name.full }}">
+        
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+
+<h2>Staff</h2>
+<div class="staff-grid">
+    {% for staff in anime.staff.edges %}
+    <div class="staff-card">
+        <img src="{{ staff.node.image.large }}" alt="{{ staff.node.name.full }}">
+        <h3>{{ staff.node.name.full }}</h3>
+        <p>Rol: {{ staff.role }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<h2>Estudios</h2>
+<ul>
+    {% for studio in anime.studios.edges %}
+    <li>{{ studio.node.name }}{% if studio.isMain %} (Principal){% endif %}</li>
+    {% endfor %}
+</ul>
+
+
+
+<script>
+    let lastScrollTop = 0;
+    const nav = document.querySelector('nav'); // Selecciona el nav
+  
+    window.addEventListener('scroll', function() {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  
+      if (currentScroll > lastScrollTop) {
+        // Scroll hacia abajo - ocultar el nav
+        nav.classList.add('hidden-nav');
+      } else {
+        // Scroll hacia arriba - mostrar el nav
+        nav.classList.remove('hidden-nav');
+      }
+  
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Asegura que no baje por debajo de 0
+    });
+</script>
+{% endblock %}

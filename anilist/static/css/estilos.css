@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Tiny5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Tiny5&display=swap');
+:root{
+  --body:#ffffff;
+  --textosEnlaces:#151515;
+  --botones:#A0153E;
+  --titulos: 3em;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+body{
+    background-color: var(--body);
+    overflow-x: hidden;  
+}
+
+header{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+nav{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover{
+  color: var(--botones);
+}
+
+nav a.active{
+  color: var(--botones);
+  border-bottom:2px solid var(--botones) ;
+}
+
+a{
+    text-decoration: none;
+    color: var(--textosEnlaces);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.login-register{
+  max-width: 20em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.login-register a:nth-child(2){
+  padding: .5em;
+  background-color: var(--botones);
+  border-radius: 6px;
+  color: #EEEEEE;
+}
+
+.logo img{
+    width: 8em;
+}
+
+.menu-bar{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1.5em;
+    align-items: center;
+}
+
+.info-page{
+  width: 75%;
+  margin: 1em auto;
+}
+
+.info-page h1{
+  font-family: "Source Code Pro", monospace;
+  font-size: var(--titulos);
+  text-align: center;
+  color: var(--botones);
+  margin: .5em 0;
+  padding: .3em;
+
+}
+
+.info-page p{
+  font-size: 1.5em;
+}
+
+.populares {
+  width: 75%;
+  margin: 1em auto;
+}
+
+.populares h1 {
+  width: 54%;
+  color: var(--botones);
+  font-size: var(--titulos);
+  border-bottom: 3px solid var(--botones);
+  margin: .5em 0;
+}
+
+.anime-item, .manga-item {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2em;
+  padding: 2em;
+  background-color: #f8f8f8;
+  border-radius: 6px;
+}
+
+.featured-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-color: #850606;
+  gap:.3em;
+}
+
+.body{
+  width: 80%;
+}
+
+.featured-item h3{
+  color:var(--botones);
+  font-weight: 400;
+}
+
+.image-container {
+  width: 80%;      /* El contenedor abarca todo el ancho */
+  height:250px;
+  overflow: hidden; 
+  margin: 0 auto;
+}
+
+.image-container img {
+  width: 90%;
+  height: 100%;  
+  border-radius: 4px;
+}
+
+.animedetail img{
+  z-index: -1;
+  position: absolute;
+}
+
+.anime-banner {
+  position: relative;
+  width: 100%;
+  height: 55vh;  /* Ajusta el tamaño a tus preferencias */
+  overflow: hidden;
+}
+
+.anime-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Contenedor de la portada */
+.cover-container {
+  position: absolute;
+  top: 35%; 
+  left: 15%;
+  z-index: 1;  
+}
+
+/* Imagen de portada */
+.cover-image {
+  width:14em; 
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+}
+
+/* Estilo del nav con opacidad */
+.anime-detail-nav {
+  background-color: rgba(0, 0, 0, 0.2);  /* Fondo semitransparente */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+/* Ajuste de la sección de información */
+
+
+.default-nav {
+  background-color: #fff;  /* Estilo del nav en otras páginas */
+}
+
+.hidden-nav {
+  transform: translateY(-100%); /* Mueve el nav hacia arriba fuera de la pantalla */
+}
+
+.cuerpo-info{
+  display: grid;
+  grid-template-columns: 208px auto;
+  grid-template-rows: 1fr;
+  grid-column-gap: 40px;
+  grid-row-gap: 1em;
+  margin: 1em 15em;
+}
+
+.cuerpo-info h1,p{
+  grid-column: 2 / -1;
+}
+
+.characters-grid{
+  display: grid;
+  grid-column-gap: 40px;
+  grid-template-columns: 208px auto;
+  margin: 1em 15em;
+}
+
+.containepj{
+  grid-column: 2/-1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  column-gap: 40px;
+}
+
+.character-card{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Barra de búsqueda*/
+.search-container{
+    max-width: 275px;
+}
+
+.input-wrapper{
+    position: relative;
+    width: 100%;
+}
+
+#inputbus{
+    width: 100%;
+    padding: .5em 2.5em .5em 1em;
+    font-size: 14px;
+    border-radius: 20px;
+    border: 2px solid #333;
+    background-color: #fff;
+    transition: all .5s;
+}
+
+#inputbus:focus{
+    border-color: var(--botones);
+    outline: none;
+}
+
+#inputbus:focus + #search-button i{
+    color:var(--botones);
+}
+
+#search-button{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background:none;
+    cursor:pointer;
+    color: #333;
+    border: none;
+    font-size: 16px;
+}
+
+
+/*Estilo del footer*/
+.footer {
+    background-color: rgb(50, 50, 50);
+    padding: 80px 0;
+    width: 100%;
+}
+  
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .footer-links {
+    width: 25%;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+  }
+  
+  .footer-links h4 {
+    font-size: 20px;
+    color: var(--botones);
+    margin-bottom: 25px;
+    font-weight: 500;
+    border-bottom: 2px solid var(--botones);
+    padding-bottom: 5px;
+    display: inline-block;
+  }
+  
+  .footer-links ul li a {
+    font-size: 18px;
+    text-decoration: none;
+    color: rgb(255, 255, 254);
+    display: block;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .footer-links ul li a:hover {
+    color: var(--botones);
+    padding-left: 6px;
+  }
+  
+  .social-link .social {
+    display: inline-block;
+    min-height: 40px;
+    width: 40px;
+    background-color: rgba(255, 255, 254, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: rgb(255, 255, 254);
+    transition: all 0.5s ease;
+  }
+  
+  .social-link .social:hover {
+    background-color: rgb(167, 49, 33);
+  }

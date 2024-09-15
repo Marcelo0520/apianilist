@@ -1,0 +1,56 @@
+{% extends 'base.html' %} 
+{% block title %}Unimanga{% endblock %} 
+{% block content %}
+
+<section class="info-page">
+    <h1>Bienvenido a Unimanga!</h1>
+    <p>Este es un proyecto personal, impulsado por la API de anilist con GraphQl, 
+       este proyecto tiene como fin que puedas encontrar todo aquel contenido que desees, que incluso puedas
+       explorar dentro de categorías para que descubras nuevos contenidos.</p>
+</section>
+
+
+<section class="contenido">
+    <section class="populares">
+        <h1>Animes con mejor valoración</h1>
+        <div class="anime-item">
+          {% for item in featured_animes %}
+          <div class="featured-item">
+            <div class="image-container">
+                <img src="{{ item.coverImage.large }}" alt="{{ item.title.romaji }}" />
+            </div>
+            <div class="body">
+              <a href="{% url 'anime_detail' item.id %}" class="manga">
+                <h3>{{ item.title.romaji }}</h3>
+              </a>
+            </div>
+          </div>
+          {% empty %}
+          <p>No hay animes populares disponibles en este momento.</p>
+          {% endfor %}
+        </div>
+      </section>
+      
+      <section class="populares">
+        <h1>Mangas con mejor valoración</h1>
+        <div class="manga-item">
+          {% for item in featured_mangas %}
+          <div class="featured-item">
+            <div class="image-container">
+                <img src="{{ item.coverImage.large }}" alt="{{ item.title.romaji }}" />
+            </div>
+            <div class="body">
+              <a href="{% url 'manga_detail' item.id %}" class="manga">
+                <h3>{{ item.title.romaji }}</h3>
+              </a>
+            </div>
+          </div>
+          {% empty %}
+          <p>No hay mangas populares disponibles en este momento.</p>
+          {% endfor %}
+        </div>
+      </section>
+</section>
+
+
+{% endblock %}

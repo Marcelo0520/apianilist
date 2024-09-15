@@ -1,0 +1,15 @@
+<!-- anime_app/templates/character_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Lista de Personajes{% endblock %}
+
+{% block content %}
+<h1>Lista de Personajes</h1>
+<ul>
+    {% for character in character_data %}
+        <li>
+            <strong>{{ character.name.full }}</strong>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
