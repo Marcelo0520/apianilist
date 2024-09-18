@@ -153,7 +153,7 @@ def home(request):
     try:
         featured_animes = get_featured_animes()
         featured_mangas = get_featured_mangas()
-        
+                
         # Agrega estos prints para ver si obtienes datos
         print("Animes Populares:", featured_animes)
         print("Mangas Populares:", featured_mangas)

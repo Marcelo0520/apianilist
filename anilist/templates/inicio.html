@@ -9,7 +9,6 @@
        explorar dentro de categorías para que descubras nuevos contenidos.</p>
 </section>
 
-
 <section class="contenido">
     <section class="populares">
         <h1>Animes con mejor valoración</h1>
@@ -18,6 +17,9 @@
           <div class="featured-item">
             <div class="image-container">
                 <img src="{{ item.coverImage.large }}" alt="{{ item.title.romaji }}" />
+                <div class="averagescore">
+                  <h3>{{ item.averageScore }}</h3>
+                </div>
             </div>
             <div class="body">
               <a href="{% url 'anime_detail' item.id %}" class="manga">
@@ -38,6 +40,9 @@
           <div class="featured-item">
             <div class="image-container">
                 <img src="{{ item.coverImage.large }}" alt="{{ item.title.romaji }}" />
+                <div class="averagescore">
+                  <h3>{{ item.averageScore }}</h3>
+                </div>
             </div>
             <div class="body">
               <a href="{% url 'manga_detail' item.id %}" class="manga">

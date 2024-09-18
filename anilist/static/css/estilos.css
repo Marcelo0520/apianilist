@@ -143,6 +143,7 @@ a{
   height:250px;
   overflow: hidden; 
   margin: 0 auto;
+  position: relative;
 }
 
 .image-container img {
@@ -159,7 +160,7 @@ a{
 .anime-banner {
   position: relative;
   width: 100%;
-  height: 55vh;  /* Ajusta el tamaño a tus preferencias */
+  height: 55vh; 
   overflow: hidden;
 }
 
@@ -173,52 +174,46 @@ a{
   z-index: -1;
 }
 
-/* Contenedor de la portada */
-.cover-container {
+.anime-info{
+  display: grid;
+  margin: 0 189px ;
+  padding: 0 50px;
+  grid-column-gap:30px ;
+  grid-template-columns: 215px auto;
+}
+
+.imagen{
+  bottom: 20% ;
   position: absolute;
-  top: 35%; 
-  left: 15%;
-  z-index: 1;  
 }
 
-/* Imagen de portada */
-.cover-image {
-  width:14em; 
-  height: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+.anime-info img{
+  width: 100%;
 }
 
-/* Estilo del nav con opacidad */
 .anime-detail-nav {
-  background-color: rgba(0, 0, 0, 0.2);  /* Fondo semitransparente */
+  background-color: rgba(0, 0, 0, 0.2);  
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 100;
 }
 
-/* Ajuste de la sección de información */
-
 
 .default-nav {
-  background-color: #fff;  /* Estilo del nav en otras páginas */
+  background-color: #fff;  
 }
 
 .hidden-nav {
-  transform: translateY(-100%); /* Mueve el nav hacia arriba fuera de la pantalla */
+  transform: translateY(-100%);
 }
 
 .cuerpo-info{
-  display: grid;
-  grid-template-columns: 208px auto;
-  grid-template-rows: 1fr;
-  grid-column-gap: 40px;
-  grid-row-gap: 1em;
-  margin: 1em 15em;
-}
-
-.cuerpo-info h1,p{
-  grid-column: 2 / -1;
+  padding: 1em;
+  grid-column: 2/-1;
+  display: flex;
+  flex-direction: column;
+  row-gap: .5em;
 }
 
 .characters-grid{
@@ -242,14 +237,35 @@ a{
   align-items: center;
 }
 
+.section-grid{
+  display: grid;
+  margin: 1em 0;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.overview{
+  grid-column: 2/-1;
+}
+
+.relations{
+  grid-column: 1/-1;
+
+}
 
 
+.averagescore{
+  position: absolute;
+  top: 5px;  
+  right: 15px;  
+  background-color: rgb(236, 255, 158);     
+  padding: .3em;
+  border-radius: 50%; 
+  z-index: 10; 
+}
 
-
-
-
-
-
+.averagescore h3{
+  color: var(--textosEnlaces);
+}
 
 
 
