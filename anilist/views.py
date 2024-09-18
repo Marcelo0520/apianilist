@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import requests 
-
+import datetime
+  
 def get_data_from_anilist(query, variables=None):
     url = 'https://graphql.anilist.co'
     headers = {
@@ -169,85 +170,119 @@ def home(request):
     }
     return render(request, 'inicio.html', context)
 
-
+# Muestra información detallada de los animes
 def get_anime_detail(anime_id):
     query = '''
     query ($id: Int) {
-  Media(id: $id, type: ANIME) {
-    title {
-      romaji
-    }
-    coverImage {
-      large
-    }
-    bannerImage
-    description
-    duration
-    genres
-    characters {
-      edges {
-        node {
-          name {
-            full
-          }
-          image {
-            large
+      Media(id: $id, type: ANIME) {
+        title {
+          romaji
+        }
+        coverImage {
+          large
+        }
+        bannerImage
+        description
+        format
+        episodes
+        duration
+        status
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+        season
+        averageScore
+        popularity
+        source
+        genres
+        studios {
+          nodes {
+            name
           }
         }
-        voiceActors {
-          name {
-            full
+        relations {
+          edges {
+            relationType(version: 2)
+            node {
+              id
+              title {
+                romaji
+              }
+              coverImage {
+                large
+              }
+            }
           }
-          image {
-            large
+        }
+        characters {
+          edges {
+            node {
+              id
+              name {
+                full
+              }
+              image {
+                large
+              }
+            }
+            voiceActors(language: JAPANESE) {
+              name {
+                full
+              }
+              image {
+                large
+              }
+            }
+          }
+        }
+        staff {
+          edges {
+            node {
+              id
+              name {
+                full
+              }
+              image {
+                large
+              }
+              primaryOccupations
+            }
           }
         }
       }
     }
-    staff {
-      edges {
-        node {
-          name {
-            full
-          }
-          image {
-            large
-          }
-        }
-        role
-      }
-    }
-    studios {
-      nodes {
-        name
-      }
-    }
-    relations {
-      edges {
-        relationType(version: 2)
-        node {
-          id
-          title {
-            romaji
-          }
-          coverImage {
-            large
-          }
-        }
-      }
-    }
-  }
-}
-
     '''
+    
     variables = {'id': anime_id}
     anime_data = get_data_from_anilist(query, variables)
     
     if anime_data:
-        return anime_data['data']['Media']
-    else:
-        print("No se obtuvieron datos del anime.")
+        anime = anime_data['data']['Media']
+        
+        # Formatear las fechas de inicio y fin
+        anime['formatted_start_date'] = format_date(anime['startDate'])
+        anime['formatted_end_date'] = format_date(anime['endDate'])
+
+        return anime
+
     return None
+
+
+
+def format_date(date_obj):
+    if date_obj['year'] and date_obj['month'] and date_obj['day']:
+        return f"{date_obj['day']:02}/{date_obj['month']:02}/{date_obj['year']}"
+    return None
+
+
+
 
 
 def anime_detail(request, anime_id):

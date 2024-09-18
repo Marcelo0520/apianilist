@@ -8,81 +8,144 @@
     <img src="{{ anime.bannerImage }}" alt="{{ anime.title.romaji }}">
 </section>
 
+<!-- Container de la información de los contenidos*/ -->
 <section class="anime-info">
-        <div class="imagen">
-            <img class="cover-image" src="{{ anime.coverImage.large }}" alt="{{ anime.title.romaji }}">
+    <div class="headerinfo">
+        <div class="wrapperdiv">
+            <div class="cover-wrap">
+                <div class="imagen"></div>
+                    <img class="cover-image" src="{{ anime.coverImage.large }}" alt="{{ anime.title.romaji }}">
+                </div>
+            </div>
         </div>
-    <div class="cuerpo-info">
-        <h1>{{ anime.title.romaji }}</h1>
-        <!-- <p>Duración de episodios: {{ anime.duration }} minutos</p> -->
-        <p>{{ anime.description|safe }}</p>
+        <div class="cuerpo-info">
+            <h1>{{ anime.title.romaji }}</h1>
+            <p>{{ anime.description|safe }}</p>
+        </div>
     </div>
 </section>
 
-<div class="section-grid">
-
-    <section class="sidebar">
-        <div class="datos">
-
-        </div>
-    </section>
-
-    <div class="overview">
-        <section class="relations">
-            <h2>Relaciones</h2>
-            <div class="relations-grid">
-              {% for relation in anime.relations.edges %}
-                <div class="relation-item">
-                  <img src="{{ relation.node.coverImage.large }}" alt="{{ relation.node.title.romaji }}">
-                  <h3>{{ relation.node.title.romaji }}</h3>
-                  <p>Tipo de relación: {{ relation.relationType }}</p>
-                </div>
-              {% endfor %}
+<div class="background-overview">
+    <div class="container-grid">
+        <section class="sidebar">
+            <div class="datos">
+                <section class="sidebar">
+                    <div class="datos">
+                        <div class="formato">
+                            <h4>Formato</h4>
+                            <p>{{ anime.format }}</p>
+                        </div>
+                        <div class="episodios">
+                            <h4>Episodios</h4>
+                            <p>{{ anime.episodes }}</p>
+                        </div>
+                        <div class="duracion">
+                            <h4>Duración</h4>
+                            <p>{{ anime.duration }} minutos</p>
+                        </div>
+                        <div class="status">
+                            <h4>Status</h4>
+                            <p>{{ anime.status }}</p>
+                        </div>
+                        <div class="start-date">
+                            <h4>Start Date</h4>
+                            <p>{{ anime.formatted_start_date }}</p>
+                        </div>
+                        <div class="end-date">
+                            <h4>End Date</h4>
+                            <p>{{ anime.formatted_end_date }}</p>
+                        </div>
+                        
+                        <div class="season">
+                            <h4>Temporada</h4>
+                            <p>{{ anime.season }}, {{ anime.startDate.year}}</p>
+                        </div>
+                        <div class="score">
+                            <h4>Puntuación Promedio</h4>
+                            <p>{{ anime.averageScore }}</p>
+                        </div>
+                        <div class="popularidad">
+                            <h4>Popularidad</h4>
+                            <p>{{ anime.popularity }}</p>
+                        </div>
+                        <div class="studios">
+                            <h4>Estudios</h4>
+                            <ul>
+                                {% for studio in anime.studios.nodes %}
+                                <li>{{ studio.name }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="source">
+                            <h4>Fuente</h4>
+                            <p>{{ anime.source }}</p>
+                        </div>
+                        <div class="generos">
+                            <h4>Géneros</h4>
+                            <ul>
+                                {% for genre in anime.genres %}
+                                <li>{{ genre }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </section>
             </div>
-          </section>
-        
-        
-        <div class="characters-grid">
-            <div class="containepj">
-            {% for character in anime.characters.edges %}
-                <div class="character-card">
-                    <div class="personaje">
-                        <img src="{{ character.node.image.large }}" alt="{{ character.node.name.full }}">
-                        <h3>{{ character.node.name.full }}</h3>
+        </section>
+    
+        <div class="overview">
+            <section class="relations">
+                <h2>Relaciones</h2>
+                <div class="relations-grid">
+                  {% for relation in anime.relations.edges %}
+                    <div class="relation-item">
+                      <a href="">
+                        <img src="{{ relation.node.coverImage.large }}" alt="{{ relation.node.title.romaji }}">
+                      </a>
+                      <div class="texto">
+                        <p>{{ relation.relationType }}</p>
+                      </div>
                     </div>
-                    <div class="seiyu">
-                        <p>Seiyuu: {{ character.voiceActors.0.name.full }}</p>
-                        <img src="{{ character.voiceActors.0.image.large }}" alt="Foto de {{ character.voiceActors.0.name.full }}">
-                    </div>
+                  {% endfor %}
                 </div>
+            </section>
+            
+            
+            <div class="personajes">
+                <h2>Personajes</h2>
+                <div class="containepj">
+                {% for character in anime.characters.edges %}
+                    <div class="character-card">
+                        <div class="personaje">
+                            <img src="{{ character.node.image.large }}" alt="{{ character.node.name.full }}">
+                            <h3>{{ character.node.name.full }}</h3>
+                        </div>
+                        <div class="seiyu">
+                            <p>Seiyuu: {{ character.voiceActors.0.name.full }}</p>
+                            <img src="{{ character.voiceActors.0.image.large }}" alt="Foto de {{ character.voiceActors.0.name.full }}">
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        
+        </div>
+        
+        
+        <h2>Staff</h2>
+        <div class="staff-grid">
+            {% for staff in anime.staff.edges %}
+            <div class="staff-card">
+                <img src="{{ staff.node.image.large }}" alt="{{ staff.node.name.full }}">
+                <h3>{{ staff.node.name.full }}</h3>
+                <p>Rol: {{ staff.role }}</p>
+            </div>
             {% endfor %}
-            </div>
+        </div>
         </div>
     
     </div>
-    
-    
-    <h2>Staff</h2>
-    <div class="staff-grid">
-        {% for staff in anime.staff.edges %}
-        <div class="staff-card">
-            <img src="{{ staff.node.image.large }}" alt="{{ staff.node.name.full }}">
-            <h3>{{ staff.node.name.full }}</h3>
-            <p>Rol: {{ staff.role }}</p>
-        </div>
-        {% endfor %}
-    </div>
-    </div>
-
 </div>
-
-<h2>Estudios</h2>
-<ul>
-    {% for studio in anime.studios.edges %}
-    <li>{{ studio.node.name }}{% if studio.isMain %} (Principal){% endif %}</li>
-    {% endfor %}
-</ul>
-
 
 
 <script>

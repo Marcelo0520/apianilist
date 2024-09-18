@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Tiny5&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Tiny5&display=swap');
 :root{
   --body:#ffffff;
   --textosEnlaces:#151515;
   --botones:#A0153E;
   --titulos: 3em;
+  --radioprom: 6px;
 }
 
 
@@ -174,21 +174,43 @@ a{
   z-index: -1;
 }
 
+.headerinfo{
+  position: relative;
+  margin: 1em;
+}
+
 .anime-info{
   display: grid;
-  margin: 0 189px ;
+  margin: 0 189.6px;
   padding: 0 50px;
   grid-column-gap:30px ;
   grid-template-columns: 215px auto;
+  grid-column: 1/-1;
 }
 
+.wrapperdiv{
+  margin-top: -125px;
+}
+
+
 .imagen{
+  position: relative;
   bottom: 20% ;
-  position: absolute;
 }
 
 .anime-info img{
   width: 100%;
+}
+
+.cuerpo-info{
+  display: grid;
+  grid-template-rows: min-content min-content auto;
+  padding: 1em;
+  row-gap: 1em;
+}
+
+.cuerpo-info h1{
+  color: var(--botones);
 }
 
 .anime-detail-nav {
@@ -199,60 +221,18 @@ a{
   z-index: 100;
 }
 
-
-.default-nav {
-  background-color: #fff;  
+.anime-detail-nav a{
+  color: #ffffff;
 }
+
+
 
 .hidden-nav {
   transform: translateY(-100%);
 }
 
-.cuerpo-info{
-  padding: 1em;
-  grid-column: 2/-1;
-  display: flex;
-  flex-direction: column;
-  row-gap: .5em;
-}
 
-.characters-grid{
-  display: grid;
-  grid-column-gap: 40px;
-  grid-template-columns: 208px auto;
-  margin: 1em 15em;
-}
-
-.containepj{
-  grid-column: 2/-1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  place-items: center;
-  column-gap: 40px;
-}
-
-.character-card{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-}
-
-.section-grid{
-  display: grid;
-  margin: 1em 0;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.overview{
-  grid-column: 2/-1;
-}
-
-.relations{
-  grid-column: 1/-1;
-
-}
-
-
+/*puntaje de las cards en inicio*/
 .averagescore{
   position: absolute;
   top: 5px;  
@@ -267,7 +247,88 @@ a{
   color: var(--textosEnlaces);
 }
 
+.background-overview{
+  background-color: #EDF1F5;
+}
 
+.container-grid{
+  display: grid;
+  grid-template-columns: 215px auto;
+  margin: 0 189.6px;
+  column-gap: 40px;
+  padding: 0 50px;
+  position: relative;
+}
+
+.sidebar{
+  grid-column: 1/2;
+  padding: 1em;
+  height: min-content;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.sidebar h4{
+  color: var(--botones);
+}
+
+.datos{
+  background-color: #FAFAFA;
+}
+
+.datos p{
+  text-transform: lowercase;
+}
+
+.datos p:first-letter{
+  text-transform: uppercase;
+}
+
+.datos div{
+  margin: 1em 0;
+}
+
+.overview{
+  grid-column: 2/-1;
+}
+
+.relations{
+  margin-bottom: 1em;
+}
+
+.relations h2{
+  margin: .5em 0;
+}
+
+.relations-grid{
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 1em;
+  justify-items: left;
+}
+
+.relation-item{
+  position: relative;
+  height: 100%;
+
+}
+
+.relation-item img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.texto{
+  width: 100%;
+  padding: .4em;
+  position:absolute;
+  text-align: center;
+  bottom: 0;
+  color: white;
+  background-color: #1515157e;
+}
 
 
 
