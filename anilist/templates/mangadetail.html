@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block title %} {{ manga.title.romaji }} {% endblock %}
+
+{% block nav_class %} anime-detail-nav {% endblock %}
+
+{% block content %}
+<section class="anime-banner">
+    <img src="{{ manga.bannerImage }}" alt="{{ manga.title.romaji }}">
+</section>
+
+<section class="anime-info">
+    <div class="headerinfo">
+        <div class="wrapperdiv">
+            <div class="cover-wrap">
+                <div class="imagen"></div>
+                    <img class="cover-image" src="{{ manga.coverImage.large }}" alt="{{ manga.title.romaji }}">
+                </div>
+            </div>
+        </div>
+        <div class="cuerpo-info">
+            <h1>{{ manga.title.romaji }}</h1>
+            <p>{{ manga.description|safe }}</p>
+        </div>
+    </div>
+</section>
+
+<div class="background-overview">
+    <div class="container-grid">
+        <section class="sidebar">
+            <div class="datos">
+                <section class="sidebar">
+                        <div class="formato">
+                            <h4>Formato</h4>
+                            <p>{{ manga.format }}</p>
+                        </div>
+                        <div class="capitulos">
+                            <h4>Capítulos</h4>
+                            <p>{{ manga.chapters }}</p>
+                        </div>
+                        <div class="volumenes">
+                            <h4>Volúmenes</h4>
+                            <p>{{ manga.volumes }}</p>
+                        </div>
+                        <div class="status">
+                            <h4>Status</h4>
+                            <p>{{ manga.status }}</p>
+                        </div>
+                        <div class="start-date">
+                            <h4>Start Date</h4>
+                            <p>{{ manga.formatted_start_date }}</p>
+                        </div>
+                        <div class="end-date">
+                            <h4>End Date</h4>
+                            <p>{{ manga.formatted_end_date }}</p>
+                        </div>
+                        <div class="score">
+                            <h4>Puntuación Promedio</h4>
+                            <p>{{ manga.averageScore }}</p>
+                        </div>
+                        <div class="popularidad">
+                            <h4>Popularidad</h4>
+                            <p>{{ manga.popularity }}</p>
+                        </div>
+                        <div class="generos">
+                            <h4>Géneros</h4>
+                            <ul>
+                                {% for genre in manga.genres %}
+                                <li>{{ genre }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                </section>
+            </div>
+            <div class="tags-section">
+                <h2>Etiquetas</h2>
+                <div class="tags">
+                        {% for tag in manga.tags %}
+                          <div class="lista">
+                            <p>{{ tag.name }}</p><p>{{ tag.rank }}%</p>
+                          </div>
+                        {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <div class="overview">
+            <section class="relations">
+                <h2>Relaciones</h2>
+                <div class="relations-grid">
+                  {% for relation in manga.relations.edges %}
+                    <div class="relation-item">
+                      <a href="">
+                        <img src="{{ relation.node.coverImage.large }}" alt="{{ relation.node.title.romaji }}">
+                      </a>
+                      <div class="texto">
+                        {% if relation.relationType == 'SIDE_STORY'%}
+                        <p> SIDE STORY </p>
+                        {% elif relation.relationType == 'SPIN_OFF' %}
+                        <p>SPIN OFF</p>
+                        {% else %}
+                        <p>{{ relation.relationType }}</p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+            </section>
+
+            <div class="personajes">
+                <a href="" class=""><h2>Personajes</h2></a>
+                <div class="containepj">
+                {% for character in manga.characters.edges|slice:":6" %}
+                    <div class="character-card">
+                        <div class="personaje">
+                            <a href="#" class="portada" style="background-image: url('{{ character.node.image.large }}');"></a>
+                                <a href="" class="contenido2">
+                                    <div class="nombre">{{ character.node.name.full }}</div>
+                                    <div class="rol">{{ character.role}}</div>
+                                </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+
+            <div class="personajes">
+                <a href="" class="">
+                    <h2>Staff en {{manga.title.romaji}} </h2>
+                </a>
+                <div class="containepj">
+                {% for staff in manga.staff.edges|slice:":6" %}
+                    <div class="staff-card">
+                        <div class="personaje">
+                            <a href="#" class="portada" style="background-image: url('{{ staff.node.image.large }}');"></a>
+                                <a href="" class="contenido2">
+                                    <div class="nombre">{{ staff.node.name.full }}</div>
+                                    <div class="rol">{{ staff.role}}</div>
+                                </a>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let lastScrollTop = 0;
+    const nav = document.querySelector('nav'); // Selecciona el nav
+  
+    window.addEventListener('scroll', function() {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  
+      if (currentScroll > lastScrollTop) {
+        // Scroll hacia abajo - ocultar el nav
+        nav.classList.add('hidden-nav');
+      } else {
+        // Scroll hacia arriba - mostrar el nav
+        nav.classList.remove('hidden-nav');
+      }
+  
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Asegura que no baje por debajo de 0
+    });
+</script>
+{% endblock %}

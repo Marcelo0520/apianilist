@@ -178,6 +178,10 @@ def get_anime_detail(anime_id):
         title {
           romaji
         }
+        tags {
+          name
+          rank  
+        }
         coverImage {
           large
         }
@@ -232,6 +236,7 @@ def get_anime_detail(anime_id):
                 large
               }
             }
+            role
             voiceActors(language: JAPANESE) {
               name {
                 full
@@ -254,6 +259,7 @@ def get_anime_detail(anime_id):
               }
               primaryOccupations
             }
+            role
           }
         }
       }
@@ -283,8 +289,6 @@ def format_date(date_obj):
 
 
 
-
-
 def anime_detail(request, anime_id):
     anime_data = get_anime_detail(anime_id)
     if anime_data:
@@ -292,41 +296,103 @@ def anime_detail(request, anime_id):
     else:
         return render(request, 'animedetail.html', {'error': 'No se encontró información para este anime.'})
 
-
-def manga_detail(request, manga_id):
+def get_manga_detail(manga_id):
     query = '''
     query ($id: Int) {
-        Media(id: $id, type: MANGA) {
-            title {
-                romaji
-            }
-            description
-            averageScore
-            characters {
-                edges {
-                    node {
-                        name {
-                            full
-                        }
-                    }
-                }
-            }
-            staff {
-                edges {
-                    node {
-                        name {
-                            full
-                        }
-                    }
-                }
-            }
+      Media(id: $id, type: MANGA) {
+        title {
+          romaji
         }
+        tags {
+          name
+          rank  
+        }
+        coverImage {
+          large
+        }
+        bannerImage
+        description
+        format
+        chapters
+        volumes
+        status
+        startDate {
+          year
+          month
+          day
+        }
+        endDate {
+          year
+          month
+          day
+        }
+        averageScore
+        popularity
+        genres
+        relations {
+          edges {
+            relationType(version: 2)
+            node {
+              id
+              title {
+                romaji
+              }
+              coverImage {
+                large
+              }
+            }
+          }
+        }
+        characters {
+          edges {
+            node {
+              id
+              name {
+                full
+              }
+              image {
+                large
+              }
+            }
+            role
+          }
+        }
+        staff {
+          edges {
+            node {
+              id
+              name {
+                full
+              }
+              image {
+                large
+              }
+              primaryOccupations
+            }
+            role
+          }
+        }
+      }
     }
     '''
-    variables = {
-        'id': manga_id
-    }
-    response = requests.post('https://graphql.anilist.co', json={'query': query, 'variables': variables})
-    manga_data = response.json().get('data', {}).get('Media', {})
+    
+    variables = {'id': manga_id}
+    manga_data = get_data_from_anilist(query, variables)
+    
+    if manga_data:
+        manga = manga_data['data']['Media']
+        
+        # Formatear las fechas de inicio y fin
+        manga['formatted_start_date'] = format_date(manga['startDate'])
+        manga['formatted_end_date'] = format_date(manga['endDate'])
 
-    return render(request, 'mangadetail.html', {'manga': manga_data})
+        return manga
+
+    return None
+
+def manga_detail(request, manga_id):
+    manga_data = get_manga_detail(manga_id)
+    if manga_data:
+        return render(request, 'mangadetail.html', {'manga': manga_data})
+    else:
+        return render(request, 'mangadetail.html', {'error': 'No se encontró información para este manga.'})

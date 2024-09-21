@@ -30,7 +30,6 @@
         <section class="sidebar">
             <div class="datos">
                 <section class="sidebar">
-                    <div class="datos">
                         <div class="formato">
                             <h4>Formato</h4>
                             <p>{{ anime.format }}</p>
@@ -88,8 +87,18 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                    </div>
                 </section>
+            </div>
+            <div class="tags-section">
+                <h2>Etiquetas</h2>
+                <div class="tags">
+                        {% for tag in anime.tags %}
+                          <div class="lista">
+                            <p>{{ tag.name }}</p><p >{{ tag.rank }}%</p>
+                          </div>
+                        {% endfor %}
+                
+                </div>
             </div>
         </section>
     
@@ -103,7 +112,13 @@
                         <img src="{{ relation.node.coverImage.large }}" alt="{{ relation.node.title.romaji }}">
                       </a>
                       <div class="texto">
+                        {% if relation.relationType == 'SIDE_STORY'%}
+                        <p> SIDE STORY </p>
+                        {% elif relation.relationType == 'SPIN_OFF' %}
+                        <p>SPIN OFF</p>
+                        {% else %}
                         <p>{{ relation.relationType }}</p>
+                        {% endif %}
                       </div>
                     </div>
                   {% endfor %}
@@ -112,36 +127,60 @@
             
             
             <div class="personajes">
-                <h2>Personajes</h2>
+                <a href="" class=""><h2>Personajes</h2></a>
                 <div class="containepj">
-                {% for character in anime.characters.edges %}
+                {% for character in anime.characters.edges|slice:":6" %}
                     <div class="character-card">
                         <div class="personaje">
-                            <img src="{{ character.node.image.large }}" alt="{{ character.node.name.full }}">
-                            <h3>{{ character.node.name.full }}</h3>
+                            <a href="#" class="portada" style="background-image: url('{{ character.node.image.large }}');">
+
+                            </a>
+                                <a href="" class="contenido2">
+                                    <div class="nombre">{{ character.node.name.full }}</div>
+                                    <div class="rol">{{ character.role}}</div>
+                                </a>
+
                         </div>
                         <div class="seiyu">
-                            <p>Seiyuu: {{ character.voiceActors.0.name.full }}</p>
-                            <img src="{{ character.voiceActors.0.image.large }}" alt="Foto de {{ character.voiceActors.0.name.full }}">
+                            <a href="#" class="portada" style="background-image: url('{{ character.voiceActors.0.image.large }}');">
+                            <a href="" class="contenido2">
+                                <div class="seiyuinfo">
+                                    {{ character.voiceActors.0.name.full }}
+                                </div>
+                                <div>{{ character.voiceActors.0.language}}</div>
+                            </a>
                         </div>
                     </div>
                 {% endfor %}
                 </div>
             </div>
         
-        </div>
         
         
-        <h2>Staff</h2>
-        <div class="staff-grid">
-            {% for staff in anime.staff.edges %}
-            <div class="staff-card">
-                <img src="{{ staff.node.image.large }}" alt="{{ staff.node.name.full }}">
-                <h3>{{ staff.node.name.full }}</h3>
-                <p>Rol: {{ staff.role }}</p>
-            </div>
+        
+        <div class="personajes">
+            <a href="" class="">
+                <h2>Staff en {{anime.title.romaji}} </h2>
+            </a>
+            <div class="containepj">
+            {% for staff in anime.staff.edges|slice:":6" %}
+                <div class="staff-card">
+                    <div class="personaje">
+                        <a href="#" class="portada" style="background-image: url('{{ staff.node.image.large }}');"></a>
+                            <a href="" class="contenido2">
+                                <div class="nombre">{{ staff.node.name.full }}</div>
+                                <div class="rol">{{ staff.role}}</div>
+                            </a>
+
+                    </div>
+                    
+
+                </div>
             {% endfor %}
+            </div>
         </div>
+        
+    
         </div>
     
     </div>
