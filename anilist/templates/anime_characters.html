@@ -103,34 +103,12 @@
               </div>            
         </section>
     
-        <div class="overview">
-            <section class="relations">
-                <a href=""><h2>Relaciones</h2></a>
-                <div class="relations-grid">
-                  {% for relation in anime.relations.edges %}
-                    <div class="relation-item">
-                      <a href="">
-                        <img src="{{ relation.node.coverImage.large }}" alt="{{ relation.node.title.romaji }}">
-                      </a>
-                      <div class="texto">
-                        {% if relation.relationType == 'SIDE_STORY'%}
-                        <p> SIDE STORY </p>
-                        {% elif relation.relationType == 'SPIN_OFF' %}
-                        <p>SPIN OFF</p>
-                        {% else %}
-                        <p>{{ relation.relationType }}</p>
-                        {% endif %}
-                      </div>
-                    </div>
-                  {% endfor %}
-                </div>
-            </section>
-            
+        <div class="overview">    
             
             <div class="personajes">
                 <a href="" class=""><h2>Personajes</h2></a>
                 <div class="containepj">
-                {% for character in anime.characters.edges|slice:":8" %}
+                {% for character in anime.characters.edges %}
                     <div class="character-card">
                         <div class="personaje">
                             <a href="#" class="portada" style="background-image: url('{{ character.node.image.large }}');">
@@ -158,26 +136,7 @@
         
         
         
-        
-        <div class="personajes">
-            <a href="" class="">
-                <h2>Staff en {{anime.title.romaji}} </h2>
-            </a>
-            <div class="containepj">
-            {% for staff in anime.staff.edges|slice:":8" %}
-                <div class="staff-card">
-                    <div class="personaje">
-                        <a href="#" class="portada" style="background-image: url('{{ staff.node.image.large }}');"></a>
-                            <a href="" class="contenido2">
-                                <div class="nombre">{{ staff.node.name.full }}</div>
-                                <div class="rol">{{ staff.role}}</div>
-                            </a>
-                    </div>
-                </div>
-            {% endfor %}
-            </div>
-        </div>
-        
+    
     
         </div>
     

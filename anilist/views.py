@@ -22,7 +22,6 @@ def get_data_from_anilist(query, variables=None):
         print(f"Error: {response.status_code} - {response.text}")
         return None
 
-
 # Vista para mostrar la lista de animes
 def anime_list(request):
     query = '''
@@ -146,10 +145,6 @@ def get_featured_mangas():
         print("No se obtuvieron datos de mangas.")
     return []
 
-
-
-
-# Vista home para mostrar animes y mangas populares
 def home(request):
     try:
         featured_animes = get_featured_animes()
@@ -291,10 +286,9 @@ def format_date(date_obj):
 
 def anime_detail(request, anime_id):
     anime_data = get_anime_detail(anime_id)
-    if anime_data:
-        return render(request, 'animedetail.html', {'anime': anime_data})
-    else:
+    if not anime_data:
         return render(request, 'animedetail.html', {'error': 'No se encontró información para este anime.'})
+    return render(request, 'animedetail.html', {'anime': anime_data})
 
 def get_manga_detail(manga_id):
     query = '''
@@ -392,7 +386,77 @@ def get_manga_detail(manga_id):
 
 def manga_detail(request, manga_id):
     manga_data = get_manga_detail(manga_id)
-    if manga_data:
-        return render(request, 'mangadetail.html', {'manga': manga_data})
-    else:
+    if not manga_data:
         return render(request, 'mangadetail.html', {'error': 'No se encontró información para este manga.'})
+
+    return render(request, 'mangadetail.html', {'manga': manga_data})
+   
+# Vista para mostrar personajes de un anime
+def anime_characters(request,anime_id):
+    anime_data = get_anime_detail(anime_id)
+    if not anime_data:
+        return render(request, 'anime_characters.html', {'error': 'No se encontró información para este anime.'})
+    return render(request, 'anime_characters.html', {'anime': anime_data})
+# Vista para mostrar staff de un anime
+def anime_staff(request, anime_id):
+    query = '''
+    query ($id: Int) {
+      Media(id: $id, type: ANIME) {
+        id
+        title {
+          romaji
+        }
+        staff {
+          edges {
+            node {
+              id
+              name {
+                full
+              }
+              image {
+                large
+              }
+            }
+          }
+        }
+      }
+    }
+    '''
+    variables = {'id': anime_id}
+    anime_data = get_data_from_anilist(query, variables)
+
+    if not anime_data:
+        return render(request, 'anime_staff.html', {'error': 'No se encontró staff para este anime.'})
+
+    return render(request, 'anime_staff.html', {'anime': anime_data['data']['Media']})
+
+# Vista para mostrar relaciones de un anime
+def anime_relations(request, anime_id):
+    query = '''
+    query ($id: Int) {
+      Media(id: $id, type: ANIME) {
+        id
+        title {
+          romaji
+        }
+        relations {
+          edges {
+            node {
+              id
+              title {
+                romaji
+              }
+              type
+            }
+          }
+        }
+      }
+    }
+    '''
+    variables = {'id': anime_id}
+    anime_data = get_data_from_anilist(query, variables)
+
+    if not anime_data:
+        return render(request, 'anime_relations.html', {'error': 'No se encontraron relaciones para este anime.'})
+
+    return render(request, 'anime_relations.html', {'anime': anime_data['data']['Media']})

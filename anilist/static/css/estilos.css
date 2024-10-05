@@ -24,11 +24,6 @@ body {
   overflow-x: hidden;
 }
 
-header {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
 
 nav {
   width: 100%;
@@ -293,6 +288,7 @@ h2{
 }
 
 .tags-section{
+  position: sticky;
   margin: 1em 0;
 }
 
@@ -302,6 +298,7 @@ h2{
 
 .lista{
   display: flex;
+  font-size: 14px;
   justify-content: space-between;
   align-items: center;
   border: 1px solid var(--botones) ;
@@ -323,6 +320,8 @@ h2{
   padding: .3em 0;
   border-bottom: 3px solid var(--botones);
 }
+
+
 
 .datos p {
   text-transform: capitalize;
@@ -400,6 +399,10 @@ h2{
   margin: .5em 0;
 }
 
+.nombre, .seiyuinfo{
+  color: var(--botones);
+}
+
 .contenido2 .nombre, .contenido2 .rol{
   display: block;
   height: 48px;
@@ -440,12 +443,19 @@ h2{
   font-size: 0.9em;
 }
 
+.staffsection{
+  margin: 1em 0;
+}
+
+.staffsection h2{
+  margin: .5em 0;
+}
 
 .staff-card{
   display: inline-grid;
+  height: 100px;
   grid-template-columns: 100%;
   grid-template-areas: "personaje staff";
-  height: 80px;
   border-radius: 2px;
   overflow: hidden;
   background-color: #fff;

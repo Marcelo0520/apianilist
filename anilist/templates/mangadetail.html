@@ -74,7 +74,7 @@
             <div class="tags-section">
                 <h2>Etiquetas</h2>
                 <div class="tags">
-                        {% for tag in manga.tags %}
+                        {% for tag in manga.tags|slice:"10" %}
                           <div class="lista">
                             <p>{{ tag.name }}</p><p>{{ tag.rank }}%</p>
                           </div>
@@ -87,7 +87,7 @@
             <section class="relations">
                 <h2>Relaciones</h2>
                 <div class="relations-grid">
-                  {% for relation in manga.relations.edges %}
+                  {% for relation in manga.relations.edges|slice:"12" %}
                     <div class="relation-item">
                       <a href="">
                         <img src="{{ relation.node.coverImage.large }}" alt="{{ relation.node.title.romaji }}">
@@ -123,9 +123,9 @@
                 </div>
             </div>
 
-            <div class="personajes">
+            <div class="staffsection">
                 <a href="" class="">
-                    <h2>Staff en {{manga.title.romaji}} </h2>
+                    <h2>Personal de trabajo </h2>
                 </a>
                 <div class="containepj">
                 {% for staff in manga.staff.edges|slice:":6" %}
